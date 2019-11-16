@@ -1,0 +1,26 @@
+<!--Verdeel deze file met commentaar zodat we weten
+welke strings bij welk fragment/activity/usecase horen-->
+<resources>
+<!--    Title-->
+    <string name="app_name">StockWatch</string>
+
+<!--    Navigation string-->
+    <string name="action_menu">Menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_my_stocks">My Stocks</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_compare">Compare</string>
+    <string name="nav_info">Info</string>
+
+<!--    Info Fragment-->
+    <string name="info_title"><u>Info</u></string>
+    <string name="info_MadeBy">Made by:</string>
+    <string name="info_wesley">Wesley Janse</string>
+    <string name="info_jelle">Jelle Van Langendonck</string>
+    <string name="info_project">Commissioned for the course Mobile Development from the ITFactory Thomas More in Geel</string>
+    <string name="info_more">For more information about the developers:</string>
+    <string name="info_wesleySite"><a href="https://itwesley.sinners.be/">ITWesley.Sinners.be</a></string>
+    <string name="info_jelleSite"><a href="https://terminus.sinners.be/">Terminus.Sinners.be</a></string>
+</resources>
