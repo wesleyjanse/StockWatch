@@ -1,7 +1,5 @@
 package be.thomasmore.stockwatch;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import be.thomasmore.stockwatch.helpers.CustomAdapter;
+import be.thomasmore.stockwatch.helpers.HttpReader;
+import be.thomasmore.stockwatch.helpers.JsonHelper;
+import be.thomasmore.stockwatch.models.News;
 
 public class HomeFragment extends Fragment {
 
@@ -52,7 +54,7 @@ public class HomeFragment extends Fragment {
         cryptoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStock();
+                Fragment selectedStock = new selectedStockFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "crypto");
                 selectedStock.setArguments(args);
@@ -65,7 +67,7 @@ public class HomeFragment extends Fragment {
         exchangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStock();
+                Fragment selectedStock = new selectedStockFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "exchange");
                 selectedStock.setArguments(args);
@@ -78,7 +80,7 @@ public class HomeFragment extends Fragment {
         companyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStock();
+                Fragment selectedStock = new selectedStockFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "company");
                 selectedStock.setArguments(args);

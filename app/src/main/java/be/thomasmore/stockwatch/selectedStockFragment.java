@@ -16,7 +16,13 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class selectedStock extends Fragment{
+import be.thomasmore.stockwatch.helpers.HttpReader;
+import be.thomasmore.stockwatch.helpers.JsonHelper;
+import be.thomasmore.stockwatch.models.Company;
+import be.thomasmore.stockwatch.models.Crypto;
+import be.thomasmore.stockwatch.models.Forex;
+
+public class selectedStockFragment extends Fragment{
     public ArrayList<String> tekst = new ArrayList<String>();;
     @Nullable
     @Override

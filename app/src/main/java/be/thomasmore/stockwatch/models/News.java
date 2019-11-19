@@ -1,4 +1,4 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.models;
 
 public class News {
     private String author;

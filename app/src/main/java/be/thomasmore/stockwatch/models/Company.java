@@ -1,4 +1,4 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.models;
 
 public class Company {
 
@@ -6,10 +6,11 @@ public class Company {
     private String name;
     private Double price;
 
-    public Company(){
+    public Company() {
 
     }
-    public Company(String symbol,String name,Double price) {
+
+    public Company(String symbol, String name, Double price) {
         this.symbol = symbol;
         this.name = name;
         this.price = price;

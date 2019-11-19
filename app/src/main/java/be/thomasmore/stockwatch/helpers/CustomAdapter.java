@@ -1,4 +1,4 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.helpers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import be.thomasmore.stockwatch.R;
+import be.thomasmore.stockwatch.models.News;
 
 public class CustomAdapter extends ArrayAdapter<News>{
 

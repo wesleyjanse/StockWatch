@@ -1,4 +1,4 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.helpers;
 
 import android.os.AsyncTask;
 import android.util.Log;

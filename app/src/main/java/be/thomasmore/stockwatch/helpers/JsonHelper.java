@@ -1,7 +1,6 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.helpers;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +8,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import be.thomasmore.stockwatch.MainActivity;
+import be.thomasmore.stockwatch.models.News;
+import be.thomasmore.stockwatch.models.Company;
+import be.thomasmore.stockwatch.models.Crypto;
+import be.thomasmore.stockwatch.models.Forex;
 
 public class JsonHelper extends MainActivity {
 

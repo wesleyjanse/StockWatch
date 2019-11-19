@@ -1,6 +1,4 @@
-package be.thomasmore.stockwatch;
-
-import java.util.Date;
+package be.thomasmore.stockwatch.models;
 
 public class Forex {
     private String ticker;
@@ -12,14 +10,15 @@ public class Forex {
     private double changes;
     private String date;
 
-    public Forex(){
+    public Forex() {
 
     }
-    public Forex(String ticker,double bid, double ask,double open,double low, double high, double changes, String date) {
+
+    public Forex(String ticker, double bid, double ask, double open, double low, double high, double changes, String date) {
         this.ticker = ticker;
-        this.bid= bid;
+        this.bid = bid;
         this.ask = ask;
-        this.open =open;
+        this.open = open;
         this.low = low;
         this.high = high;
         this.changes = changes;

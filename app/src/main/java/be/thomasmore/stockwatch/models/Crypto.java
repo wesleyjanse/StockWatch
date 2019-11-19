@@ -1,16 +1,17 @@
-package be.thomasmore.stockwatch;
+package be.thomasmore.stockwatch.models;
 
 public class Crypto {
-private String ticker;
-private String name;
-private Double price;
-private Double changes;
-private int marketCapitalization;
+    private String ticker;
+    private String name;
+    private Double price;
+    private Double changes;
+    private int marketCapitalization;
 
-public Crypto(){
+    public Crypto() {
 
-}
-    public Crypto(String ticker, String name,Double price,Double changes,int marketCapitalization) {
+    }
+
+    public Crypto(String ticker, String name, Double price, Double changes, int marketCapitalization) {
         this.ticker = ticker;
         this.name = name;
         this.price = price;
