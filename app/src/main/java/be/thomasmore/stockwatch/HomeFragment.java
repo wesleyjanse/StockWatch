@@ -1,18 +1,23 @@
 package be.thomasmore.stockwatch;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -20,26 +25,30 @@ public class HomeFragment extends Fragment {
     private Button cryptoButton;
     private Button exchangeButton;
     private Button companyButton;
+    public ArrayList<String> tekst = new ArrayList<String>();;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
-        resourcesButton = (Button) rootView.findViewById(R.id.resources);
-        cryptoButton = (Button) rootView.findViewById(R.id.crypto);
-        exchangeButton = (Button) rootView.findViewById(R.id.exchange);
-        companyButton = (Button) rootView.findViewById(R.id.companies);
-        resourcesButton.setOnClickListener(new View.OnClickListener() {
+
+        final View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        HttpReader httpReader = new HttpReader();
+        httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
             @Override
-            public void onClick(View view) {
-                Fragment selectedStock = new selectedStock();
-                Bundle args = new Bundle();
-                args.putString("Soort", "Resources");
-                selectedStock.setArguments(args);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, selectedStock ); // give your fragment container id in first parameter
-                transaction.commit();
+            public void resultReady(String result) {
+                JsonHelper jsonHelper = new JsonHelper();
+                ArrayList<News> newsArticles = jsonHelper.getNews(result);
+                ListView listView = (ListView) rootView.findViewById(R.id.news);
+                Log.e("tekst",tekst.toString());
+                ArrayAdapter adapter= new CustomAdapter(newsArticles,getContext());
+
+                listView.setAdapter(adapter);
+
             }
         });
+        httpReader.execute("https://newsapi.org/v2/everything?q=finance&apiKey=0c6d2b215408451abce14e5e03fe8c2e");
+        cryptoButton = (Button) rootView.findViewById(R.id.crypto);
+        exchangeButton = (Button) rootView.findViewById(R.id.exchange);
+        companyButton = (Button) rootView.findViewById(R.id.company);
         cryptoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +88,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
         return rootView;
     }
 

@@ -61,7 +61,49 @@ public class JsonHelper extends MainActivity {
         return lijst;
 
     }
+    public List<Company> getCompanies(String jsonTekst) {
+        List<Company> lijst = new ArrayList<Company>();
 
+        try {
+            JSONObject tussenStapJson = new JSONObject(jsonTekst);
+            JSONArray jsonArrayCompany = tussenStapJson.getJSONArray("symbolsList");
+            for (int i = 0; i < jsonArrayCompany.length(); i++) {
+                JSONObject jsonObjectCompany = jsonArrayCompany.getJSONObject(i);
 
+                Company company = new Company();
+                company.setSymbol(jsonObjectCompany.getString("symbol"));
+                company.setName(jsonObjectCompany.getString("name"));
+                company.setPrice(jsonObjectCompany.getDouble("price"));
+                lijst.add(company);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return lijst;
+
+    }
+    public ArrayList<News> getNews(String jsonTekst) {
+        ArrayList<News> lijst = new ArrayList<News>();
+
+        try {
+            JSONObject tussenStapJson = new JSONObject(jsonTekst);
+            JSONArray jsonArrayNews = tussenStapJson.getJSONArray("articles");
+            for (int i = 0; i < jsonArrayNews.length(); i++) {
+                JSONObject jsonObjectCompany = jsonArrayNews.getJSONObject(i);
+
+                News news =new News();
+                news.setAuthor(jsonObjectCompany.getString("author"));
+                news.setTitle(jsonObjectCompany.getString("title"));
+                news.setDescription(jsonObjectCompany.getString("description"));
+                news.setUrl(jsonObjectCompany.getString("url"));
+                news.setUrlToImage(jsonObjectCompany.getString("urlToImage"));
+                lijst.add(news);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return lijst;
+
+    }
 }
 

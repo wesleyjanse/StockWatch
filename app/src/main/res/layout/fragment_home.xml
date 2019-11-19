@@ -28,13 +28,12 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
         <Button
-            android:id="@+id/resources"
-            android:onClick="openSelectedStock"
+            android:id="@+id/company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:paddingLeft="30sp"
-            android:text="Resources"
+            android:text="Companies"
             android:textAlignment="textStart"
             android:drawableRight="@android:drawable/ic_media_play"
             android:textAllCaps="false"
@@ -61,17 +60,17 @@
             android:drawableRight="@android:drawable/ic_media_play"
             android:textAllCaps="false"
             android:textSize="25sp"/>
-        <Button
-            android:id="@+id/companies"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:paddingLeft="30sp"
-            android:text="Companies"
-            android:textAlignment="textStart"
-            android:drawableRight="@android:drawable/ic_media_play"
-            android:textAllCaps="false"
-            android:textSize="25sp"/>
+            android:text="Usefull newsarticles:"
+            android:textSize="20sp"
+            android:paddingTop="35sp"/>
+<ListView
+    android:id="@+id/news"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:dividerHeight="1dp"
+   />
     </LinearLayout>
-
 </LinearLayout>

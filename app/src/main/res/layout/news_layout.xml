@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical">
+<TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:text="Title"
+    android:textSize="20dp"
+    android:padding="10dp"/>
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="LOREM IPSUM DOLOR SIT ET AMET"
+        android:textSize="15dp"
+        android:layout_alignParentBottom="true"
+        />
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/urlToImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:id="@+id/url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/description"
+        android:text="To article"/>
+</RelativeLayout>
