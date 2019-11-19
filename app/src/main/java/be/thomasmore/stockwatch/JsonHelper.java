@@ -35,6 +35,32 @@ public class JsonHelper extends MainActivity {
         return lijst;
 
     }
+    public List<Forex> getForexes(String jsonTekst) {
+        List<Forex> lijst = new ArrayList<Forex>();
+
+        try {
+            JSONObject tussenStapJson = new JSONObject(jsonTekst);
+            JSONArray jsonArrayForex = tussenStapJson.getJSONArray("forexList");
+            for (int i = 0; i < jsonArrayForex.length(); i++) {
+                JSONObject jsonObjectForex = jsonArrayForex.getJSONObject(i);
+
+                Forex forex = new Forex();
+                forex.setTicker(jsonObjectForex.getString("ticker"));
+                forex.setBid(jsonObjectForex.getDouble("bid"));
+                forex.setAsk(jsonObjectForex.getDouble("ask"));
+                forex.setOpen(jsonObjectForex.getDouble("open"));
+                forex.setLow(jsonObjectForex.getDouble("low"));
+                forex.setHigh(jsonObjectForex.getDouble("high"));
+                forex.setChanges(jsonObjectForex.getDouble("changes"));
+                forex.setDate(jsonObjectForex.getString("date"));
+                lijst.add(forex);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return lijst;
+
+    }
 
 
 }

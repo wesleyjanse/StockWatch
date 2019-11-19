@@ -46,8 +46,23 @@ public class selectedStock extends Fragment{
                 }
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/cryptocurrencies");
+        }else if(soort == "exchange"){
+            HttpReader httpReader = new HttpReader();
+            httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
+                @Override
+                public void resultReady(String result) {
+                    JsonHelper jsonHelper = new JsonHelper();
+                    List<Forex> forexes = jsonHelper.getForexes(result);
+                    for (int i = 0; i < forexes.size(); i++ ) {
+                        tekst.add(forexes.get(i).getTicker()+"      bid:"+forexes.get(i).getBid()+"      ask:"+ forexes.get(i).getAsk());
+                    }
+                    ListView listView = (ListView) view.findViewById(R.id.soort);
+                    ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,tekst);
+                    listView.setAdapter(arrayAdapter);
 
-
+                }
+            });
+            httpReader.execute("https://financialmodelingprep.com/api/v3/forex");
         }
 
         return view;
