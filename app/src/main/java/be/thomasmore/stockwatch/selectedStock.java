@@ -37,7 +37,7 @@ public class selectedStock extends Fragment{
                     JsonHelper jsonHelper = new JsonHelper();
                     List<Crypto> cryptos = jsonHelper.getCryptos(result);
                     for (int i = 0; i < cryptos.size(); i++ ) {
-                        tekst.add(cryptos.get(i).getName());
+                        tekst.add(cryptos.get(i).getName()+"   ("+cryptos.get(i).getTicker()+")   "+ cryptos.get(i).getChanges());
                     }
                     ListView listView = (ListView) view.findViewById(R.id.soort);
                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,tekst);
