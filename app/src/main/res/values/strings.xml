@@ -1,10 +1,10 @@
 <!--Verdeel deze file met commentaar zodat we weten
 welke strings bij welk fragment/activity/usecase horen-->
 <resources>
-<!--    Title-->
+    <!--    Title-->
     <string name="app_name">StockWatch</string>
 
-<!--    Navigation string-->
+    <!--    Navigation string-->
     <string name="action_menu">Menu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -14,7 +14,7 @@ welke strings bij welk fragment/activity/usecase horen-->
     <string name="nav_compare">Compare</string>
     <string name="nav_info">Info</string>
 
-<!--    Info Fragment-->
+    <!--    Info Fragment-->
     <string name="info_title"><u>Info</u></string>
     <string name="info_MadeBy">Made by:</string>
     <string name="info_wesley">Wesley Janse</string>
@@ -23,4 +23,8 @@ welke strings bij welk fragment/activity/usecase horen-->
     <string name="info_more">For more information about the developers:</string>
     <string name="info_wesleySite"><a href="https://itwesley.sinners.be/">ITWesley.Sinners.be</a></string>
     <string name="info_jelleSite"><a href="https://terminus.sinners.be/">Terminus.Sinners.be</a></string>
+    <string name="title_activity_selected_stock">SelectedStockActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
