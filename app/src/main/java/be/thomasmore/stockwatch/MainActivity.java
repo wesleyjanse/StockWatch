@@ -1,6 +1,8 @@
 package be.thomasmore.stockwatch;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
+                    new HomeFragment()).addToBackStack(null).commit();
             navigationView.setCheckedItem(R.id.home);
         }
 
@@ -46,23 +49,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HomeFragment()).commit();
+                        new HomeFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_my_stocks:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MyStocksFragment()).commit();
+                        new MyStocksFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_favorites:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FavoritesFragment()).commit();
+                        new FavoritesFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_compare:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new CompareFragment()).commit();
+                        new CompareFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_info:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new InfoFragment()).commit();
+                        new InfoFragment()).addToBackStack(null).commit();
                 break;
         }
 
@@ -77,8 +80,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (currentFragment instanceof StockListFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            if ((getSupportFragmentManager().getBackStackEntryCount() > 0))
+            {
+                if (currentFragment instanceof HomeFragment){
+                    System.exit(1);
+                } else{
+                    getSupportFragmentManager().popBackStack();
+                }
             } else{
                 super.onBackPressed();
             }

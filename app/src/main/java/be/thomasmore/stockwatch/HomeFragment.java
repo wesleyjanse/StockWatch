@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
 import java.util.ArrayList;
+
 import be.thomasmore.stockwatch.helpers.CustomAdapter;
 import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;
@@ -25,12 +27,14 @@ public class HomeFragment extends Fragment {
     private Button cryptoButton;
     private Button exchangeButton;
     private Button companyButton;
-    public ArrayList<String> tekst = new ArrayList<String>();;
+    public ArrayList<String> tekst = new ArrayList<String>();
+    ;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         HttpReader httpReader = new HttpReader();
         httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
             @Override
@@ -38,8 +42,8 @@ public class HomeFragment extends Fragment {
                 JsonHelper jsonHelper = new JsonHelper();
                 ArrayList<News> newsArticles = jsonHelper.getNews(result);
                 ListView listView = (ListView) rootView.findViewById(R.id.news);
-                Log.e("tekst",tekst.toString());
-                ArrayAdapter adapter= new CustomAdapter(newsArticles,getContext());
+                Log.e("tekst", tekst.toString());
+                ArrayAdapter adapter = new CustomAdapter(newsArticles, getContext());
 
                 listView.setAdapter(adapter);
 
@@ -57,9 +61,9 @@ public class HomeFragment extends Fragment {
                 args.putString("Soort", "crypto");
                 selectedStock.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, selectedStock ); // give your fragment container id in first parameter
+                transaction.replace(R.id.fragment_container, selectedStock); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);
                 transaction.commit();
-
             }
         });
         exchangeButton.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +74,8 @@ public class HomeFragment extends Fragment {
                 args.putString("Soort", "exchange");
                 selectedStock.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, selectedStock ); // give your fragment container id in first parameter
+                transaction.replace(R.id.fragment_container, selectedStock); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);
                 transaction.commit();
 
             }
@@ -83,7 +88,8 @@ public class HomeFragment extends Fragment {
                 args.putString("Soort", "company");
                 selectedStock.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, selectedStock ); // give your fragment container id in first parameter
+                transaction.replace(R.id.fragment_container, selectedStock); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);
                 transaction.commit();
 
             }
@@ -91,8 +97,6 @@ public class HomeFragment extends Fragment {
 
         return rootView;
     }
-
-
 
 
 }

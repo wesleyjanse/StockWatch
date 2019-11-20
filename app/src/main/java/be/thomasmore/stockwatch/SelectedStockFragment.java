@@ -30,7 +30,7 @@ public class SelectedStockFragment extends Fragment {
         String stock= args.getString("Stock","");
         String soort= args.getString("Soort","");
 
-        if (soort=="Crypto"){
+        if (soort.equals("Crypto")){
             HttpReader httpReader = new HttpReader();
             httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
                 @Override
@@ -42,13 +42,13 @@ public class SelectedStockFragment extends Fragment {
                     textViewTitle.setText(crypto.getName());
 
                     TextView textViewCode= (TextView)view.findViewById(R.id.code);
-                    textViewCode.setText("Code: "+crypto.getTicker());
+                    textViewCode.setText("Code: " + crypto.getTicker());
 
                     TextView textViewChanges= (TextView)view.findViewById(R.id.changes);
-                    textViewChanges.setText("Last changes: "+crypto.getChanges().toString());
+                    textViewChanges.setText("Last changes: "+ crypto.getChanges().toString());
 
                     TextView textViewPrice= (TextView)view.findViewById(R.id.price);
-                    textViewPrice.setText("Current price: "+crypto.getPrice().toString()+"$");
+                    textViewPrice.setText("Current price: "+ crypto.getPrice().toString()+"$");
                     TextView textViewExtra= (TextView)view.findViewById(R.id.extra);
                     textViewExtra.setText("Current market cap.: "+String.valueOf(crypto.getMarketCapitalization()));
                 }
