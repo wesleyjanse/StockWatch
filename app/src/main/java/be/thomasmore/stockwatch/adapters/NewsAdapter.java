@@ -1,8 +1,10 @@
 package be.thomasmore.stockwatch.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -45,7 +48,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
     private int lastPosition = -1;
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         News dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
@@ -77,6 +80,17 @@ public class NewsAdapter extends ArrayAdapter<News> {
         viewHolder.description.setText(dataModel.getDescription());
         Picasso.get().load(dataModel.getUrlToImage()).into(viewHolder.urlToImage);
 
+        Button toURLButton = (Button)convertView.findViewById(R.id.url);
+
+        toURLButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(dataSet.get(position).getUrl()));
+                getContext().startActivity(i);
+            }
+        });
         //viewHolder.url.setText(dataModel.getUrl());
         // Return the completed view to render on screen
         return convertView;
