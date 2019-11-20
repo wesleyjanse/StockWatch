@@ -1,7 +1,10 @@
 package be.thomasmore.stockwatch.helpers;
 
 import android.util.Log;
+<<<<<<< HEAD:app/src/main/java/be/thomasmore/stockwatch/helpers/JsonHelper.java
 
+=======
+>>>>>>> rebase error:app/src/main/java/be/thomasmore/stockwatch/JsonHelper.java
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

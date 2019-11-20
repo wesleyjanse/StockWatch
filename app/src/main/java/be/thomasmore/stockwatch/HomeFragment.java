@@ -13,17 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import java.util.ArrayList;
-
 import be.thomasmore.stockwatch.helpers.CustomAdapter;
 import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;
 import be.thomasmore.stockwatch.models.News;
 
+
 public class HomeFragment extends Fragment {
 
-    private Button resourcesButton;
     private Button cryptoButton;
     private Button exchangeButton;
     private Button companyButton;
