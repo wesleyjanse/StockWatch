@@ -1,6 +1,10 @@
-package be.thomasmore.stockwatch.helpers;
+package be.thomasmore.stockwatch.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +13,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import be.thomasmore.stockwatch.R;
 import be.thomasmore.stockwatch.models.News;
 
-public class CustomAdapter extends ArrayAdapter<News>{
+public class NewsAdapter extends ArrayAdapter<News> {
 
     private ArrayList<News> dataSet;
     Context mContext;
@@ -27,10 +34,10 @@ public class CustomAdapter extends ArrayAdapter<News>{
         Button url;
     }
 
-    public CustomAdapter(ArrayList<News> data, Context context) {
+    public NewsAdapter(ArrayList<News> data, Context context) {
         super(context, R.layout.news_layout, data);
         this.dataSet = data;
-        this.mContext=context;
+        this.mContext = context;
 
     }
 
@@ -56,19 +63,21 @@ public class CustomAdapter extends ArrayAdapter<News>{
             viewHolder.url = (Button) convertView.findViewById(R.id.url);
             viewHolder.urlToImage = (ImageView) convertView.findViewById(R.id.urlToImage);
 
-            result=convertView;
+            result = convertView;
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            result = convertView;
         }
 
         lastPosition = position;
 
         viewHolder.title.setText(dataModel.getTitle());
         viewHolder.description.setText(dataModel.getDescription());
-        viewHolder.url.setText(dataModel.getUrl());
+        Picasso.get().load(dataModel.getUrlToImage()).into(viewHolder.urlToImage);
+
+        //viewHolder.url.setText(dataModel.getUrl());
         // Return the completed view to render on screen
         return convertView;
     }

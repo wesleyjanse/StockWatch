@@ -1,76 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/AppTheme.NoActionBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <Button
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30sp"
-        android:text="Search"
-        android:textAlignment="textStart"
-        android:drawableRight="@android:drawable/ic_menu_search"
-        android:textAllCaps="false"
-        android:textSize="25sp"/>
+    android:padding="10dp">
+
+<!--    <Button-->
+<!--        android:id="@+id/search"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:drawableRight="@android:drawable/ic_menu_search"-->
+<!--        android:paddingLeft="30sp"-->
+<!--        android:text="Search"-->
+<!--        android:textAlignment="textStart"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="25sp" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Stocks:"-->
+<!--        android:textSize="20sp" />-->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="30sp"
-        android:text="Stocks:"
-        android:textSize="20sp"
-        />
+        android:text="@string/app_name"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:shadowColor="#7F000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textSize="40dp">
+    </TextView>
 
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:drawableRight="@drawable/ic_right"
             android:paddingLeft="30sp"
             android:text="Companies"
+            android:textColor="@color/logoColor"
+            android:drawableTint="@color/logoColor"
             android:textAlignment="textStart"
-            android:drawableRight="@android:drawable/ic_media_play"
             android:textAllCaps="false"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:layout_marginBottom="5dp"/>
+
         <Button
             android:id="@+id/crypto"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:textColor="@color/logoColor"
+            android:drawableTint="@color/logoColor"
+            android:drawableRight="@drawable/ic_right"
             android:paddingLeft="30sp"
             android:text="CryptoCurrencies"
             android:textAlignment="textStart"
-            android:drawableRight="@android:drawable/ic_media_play"
             android:textAllCaps="false"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:layout_marginBottom="5dp"/>
+
         <Button
             android:id="@+id/exchange"
+            android:textColor="@color/logoColor"
+            android:drawableTint="@color/logoColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:drawableRight="@drawable/ic_right"
             android:paddingLeft="30sp"
             android:text="Exchanges"
             android:textAlignment="textStart"
-            android:drawableRight="@android:drawable/ic_media_play"
             android:textAllCaps="false"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Usefull newsarticles:"
-            android:textSize="20sp"
-            android:paddingTop="35sp"/>
-<ListView
-    android:id="@+id/news"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:dividerHeight="1dp"
-   />
+            android:paddingTop="35sp"
+            android:text="News:"
+            android:textSize="20sp" />
+        <ListView
+            android:id="@+id/news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="1dp" />
     </LinearLayout>
+
 </LinearLayout>

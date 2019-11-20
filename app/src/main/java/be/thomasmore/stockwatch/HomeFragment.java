@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
-import be.thomasmore.stockwatch.helpers.CustomAdapter;
+import be.thomasmore.stockwatch.adapters.NewsAdapter;
 import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;
 import be.thomasmore.stockwatch.models.News;
@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
                 ArrayList<News> newsArticles = jsonHelper.getNews(result);
                 ListView listView = (ListView) rootView.findViewById(R.id.news);
                 Log.e("tekst", tekst.toString());
-                ArrayAdapter adapter = new CustomAdapter(newsArticles, getContext());
+                ArrayAdapter adapter = new NewsAdapter(newsArticles, getContext());
 
                 listView.setAdapter(adapter);
 
