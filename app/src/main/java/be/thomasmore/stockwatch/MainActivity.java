@@ -46,26 +46,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).addToBackStack(null).commit();
+                toolbar.setTitle("Home");
                 break;
             case R.id.nav_my_stocks:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new MyStocksFragment()).addToBackStack(null).commit();
+                toolbar.setTitle("My stocks");
                 break;
             case R.id.nav_favorites:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new FavoritesFragment()).addToBackStack(null).commit();
+                toolbar.setTitle("Favorites");
                 break;
             case R.id.nav_compare:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new CompareFragment()).addToBackStack(null).commit();
+                toolbar.setTitle("Compare");
                 break;
             case R.id.nav_info:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new InfoFragment()).addToBackStack(null).commit();
+                toolbar.setTitle("Info");
                 break;
         }
 
