@@ -1,10 +1,6 @@
 package be.thomasmore.stockwatch.helpers;
 
 import android.util.Log;
-<<<<<<< HEAD:app/src/main/java/be/thomasmore/stockwatch/helpers/JsonHelper.java
-
-=======
->>>>>>> rebase error:app/src/main/java/be/thomasmore/stockwatch/JsonHelper.java
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +37,24 @@ public class JsonHelper extends MainActivity {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return lijst;
+
+    }
+    public Crypto getCrypto(String jsonTekst) {
+        Crypto crypto = new Crypto();
+
+        try {
+            JSONObject jsonObjectCrypto = new JSONObject(jsonTekst);
+                crypto.setTicker(jsonObjectCrypto.getString("ticker"));
+                crypto.setName(jsonObjectCrypto.getString("name"));
+                crypto.setPrice(jsonObjectCrypto.getDouble("price"));
+                crypto.setChanges(jsonObjectCrypto.getDouble("changes"));
+                crypto.setMarketCapitalization(jsonObjectCrypto.getInt("marketCapitalization"));
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        Log.e("test123",crypto.toString());
+        return crypto;
 
     }
     public List<Forex> getForexes(String jsonTekst) {

@@ -1,7 +1,6 @@
 package be.thomasmore.stockwatch;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (currentFragment instanceof selectedStockFragment) {
+            if (currentFragment instanceof StockListFragment) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             } else{
                 super.onBackPressed();

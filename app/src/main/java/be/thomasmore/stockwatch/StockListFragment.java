@@ -5,14 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +23,14 @@ import be.thomasmore.stockwatch.models.Company;
 import be.thomasmore.stockwatch.models.Crypto;
 import be.thomasmore.stockwatch.models.Forex;
 
-public class selectedStockFragment extends Fragment{
-    public ArrayList<String> tekst = new ArrayList<String>();;
+public class StockListFragment extends Fragment{
+    public ArrayList<String> tekst = new ArrayList<String>();
+    public String string;
+    String subString;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_selected_stock,
+        final View view = inflater.inflate(R.layout.fragment_stock_list,
                 container, false);
         Bundle args = getArguments();
         String soort= args.getString("Soort","");
@@ -39,11 +42,31 @@ public class selectedStockFragment extends Fragment{
                     JsonHelper jsonHelper = new JsonHelper();
                     List<Crypto> cryptos = jsonHelper.getCryptos(result);
                     for (int i = 0; i < cryptos.size(); i++ ) {
-                        tekst.add(cryptos.get(i).getName()+"   ("+cryptos.get(i).getTicker()+")   "+ cryptos.get(i).getChanges());
+                        tekst.add(cryptos.get(i).getTicker()+"   ("+cryptos.get(i).getName()+")   "+ cryptos.get(i).getChanges());
                     }
                     ListView listView = (ListView) view.findViewById(R.id.soort);
                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,tekst);
                     listView.setAdapter(arrayAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                             string= tekst.get(position);
+                            int index = string.indexOf("   ");
+                            if (index != -1)
+                            {
+                                subString= string.substring(0 , index);
+                            }
+                            Fragment selectedStock = new SelectedStockFragment();
+                            Bundle args = new Bundle();
+                            args.putString("Stock", subString);
+                            args.putString("Soort","Crypto");
+                            selectedStock.setArguments(args);
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, selectedStock ); // give your fragment container id in first parameter
+                            transaction.commit();
+                        }
+                    });
 
                 }
             });

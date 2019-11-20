@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
         cryptoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStockFragment();
+                Fragment selectedStock = new StockListFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "crypto");
                 selectedStock.setArguments(args);
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         exchangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStockFragment();
+                Fragment selectedStock = new StockListFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "exchange");
                 selectedStock.setArguments(args);
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         companyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment selectedStock = new selectedStockFragment();
+                Fragment selectedStock = new StockListFragment();
                 Bundle args = new Bundle();
                 args.putString("Soort", "company");
                 selectedStock.setArguments(args);
