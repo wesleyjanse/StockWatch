@@ -25,4 +25,7 @@ welke strings bij welk fragment/activity/usecase horen-->
     <string name="info_jelleSite"><a href="https://terminus.sinners.be/">Terminus.Sinners.be</a></string>
     <string name="title_activity_selected_stock">SelectedStockActivity</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -104,6 +104,38 @@ public class JsonHelper extends MainActivity {
         return lijst;
 
     }
+    public Company getCompany(String jsonTekst) {
+
+        Company company = new Company();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonTekst);
+            company.setSymbol(jsonObject.getString("symbol"));
+
+            JSONObject jsonObjectCompanyProfile = jsonObject.getJSONObject("profile");
+            company.setName(jsonObjectCompanyProfile.getString("companyName"));
+            company.setPrice(jsonObjectCompanyProfile.getDouble("price"));
+            company.setBeta(jsonObjectCompanyProfile.getDouble("beta"));
+            company.setVolAvg(jsonObjectCompanyProfile.getInt("volAvg"));
+            company.setMktCap(jsonObjectCompanyProfile.getDouble("mktCap"));
+            company.setLastDiv(jsonObjectCompanyProfile.getDouble("lastDiv"));
+            company.setRange(jsonObjectCompanyProfile.getString("range"));
+            company.setChanges(jsonObjectCompanyProfile.getDouble("changes"));
+            company.setChangesPercentage(jsonObjectCompanyProfile.getString("changesPercentage"));
+            company.setExchange(jsonObjectCompanyProfile.getString("exchange"));
+            company.setIndustry(jsonObjectCompanyProfile.getString("industry"));
+            company.setWebsite(jsonObjectCompanyProfile.getString("website"));
+            company.setDescription(jsonObjectCompanyProfile.getString("description"));
+            company.setCeo(jsonObjectCompanyProfile.getString("ceo"));
+            company.setSector(jsonObjectCompanyProfile.getString("sector"));
+            company.setImage(jsonObjectCompanyProfile.getString("image"));
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        Log.e("test123",company.toString());
+        return company;
+
+    }
     public ArrayList<News> getNews(String jsonTekst) {
         ArrayList<News> lijst = new ArrayList<News>();
 

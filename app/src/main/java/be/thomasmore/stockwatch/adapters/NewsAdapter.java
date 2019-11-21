@@ -91,8 +91,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
                 getContext().startActivity(i);
             }
         });
-        //viewHolder.url.setText(dataModel.getUrl());
-        // Return the completed view to render on screen
         return convertView;
     }
 }

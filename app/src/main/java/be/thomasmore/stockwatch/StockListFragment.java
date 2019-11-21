@@ -58,10 +58,9 @@ public class StockListFragment extends Fragment {
                             if (index != -1) {
                                 subString = string.substring(0, index);
                             }
-                            Fragment selectedStock = new SelectedStockFragment();
+                            Fragment selectedStock = new SelectedCryptoFragment();
                             Bundle args = new Bundle();
                             args.putString("Stock", subString);
-                            args.putString("Soort", "Crypto");
                             selectedStock.setArguments(args);
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
                             transaction.replace(R.id.fragment_container, selectedStock); // give your fragment container id in first parameter
@@ -82,7 +81,7 @@ public class StockListFragment extends Fragment {
                     JsonHelper jsonHelper = new JsonHelper();
                     List<Forex> forexes = jsonHelper.getForexes(result);
                     for (int i = 0; i < forexes.size(); i++) {
-                        tekst.add(forexes.get(i).getTicker() + "      bid:" + forexes.get(i).getBid() + "      ask:" + forexes.get(i).getAsk());
+                        tekst.add(forexes.get(i).getTicker());
                     }
                     ListView listView = (ListView) view.findViewById(R.id.soort);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
@@ -110,7 +109,25 @@ public class StockListFragment extends Fragment {
                     ListView listView = (ListView) view.findViewById(R.id.soort);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
                     listView.setAdapter(arrayAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                            string = tekst.get(position);
+                            int index = string.indexOf(": ");
+                            if (index != -1) {
+                                subString = string.substring(0, index);
+                            }
+                            Fragment selectedCompany = new SelectedCompanyFragment();
+                            Bundle args = new Bundle();
+                            args.putString("Stock", subString);
+                            selectedCompany.setArguments(args);
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, selectedCompany); // give your fragment container id in first parameter
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    });
                 }
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/company/stock/list");
