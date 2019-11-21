@@ -73,7 +73,6 @@ public class StockListFragment extends Fragment {
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/cryptocurrencies");
         } else if (soort == "exchange") {
-            Log.e("test", "test exchange");
             HttpReader httpReader = new HttpReader();
             httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
                 @Override
@@ -86,7 +85,25 @@ public class StockListFragment extends Fragment {
                     ListView listView = (ListView) view.findViewById(R.id.soort);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
                     listView.setAdapter(arrayAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                            string = tekst.get(position);
+                            int index = string.indexOf("/");
+                            if (index != -1) {
+                                subString = string.substring(0, index)+string.substring(index+1);
+                            }
+                            Fragment selectedFedex = new SelectedFedexFragment();
+                            Bundle args = new Bundle();
+                            args.putString("Stock", subString);
+                            selectedFedex.setArguments(args);
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, selectedFedex); // give your fragment container id in first parameter
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    });
                 }
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/forex");

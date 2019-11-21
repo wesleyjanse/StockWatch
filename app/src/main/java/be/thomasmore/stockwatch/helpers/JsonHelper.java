@@ -53,7 +53,6 @@ public class JsonHelper extends MainActivity {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-        Log.e("test123",crypto.toString());
         return crypto;
 
     }
@@ -81,6 +80,27 @@ public class JsonHelper extends MainActivity {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return lijst;
+
+    }
+    public Forex getForex(String jsonTekst) {
+
+        Forex forex = new Forex();
+
+        try {
+            JSONObject jsonObjectForex = new JSONObject(jsonTekst);
+                forex.setTicker(jsonObjectForex.getString("ticker"));
+                forex.setBid(jsonObjectForex.getDouble("bid"));
+                forex.setAsk(jsonObjectForex.getDouble("ask"));
+                forex.setOpen(jsonObjectForex.getDouble("open"));
+                forex.setLow(jsonObjectForex.getDouble("low"));
+                forex.setHigh(jsonObjectForex.getDouble("high"));
+                forex.setChanges(jsonObjectForex.getDouble("changes"));
+                forex.setDate(jsonObjectForex.getString("date"));
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return forex;
 
     }
     public List<Company> getCompanies(String jsonTekst) {
@@ -132,7 +152,6 @@ public class JsonHelper extends MainActivity {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-        Log.e("test123",company.toString());
         return company;
 
     }
