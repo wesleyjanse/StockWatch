@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,16 @@ public class StockListFragment extends Fragment {
     public ArrayList<String> tekst = new ArrayList<String>();
     public String string;
     String subString;
+    SearchView sv;
+    ListView listView;
+    ArrayAdapter arrayAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_stock_list,
                 container, false);
+
         Bundle args = getArguments();
         String soort = args.getString("Soort", "");
         if (soort == "crypto") {
@@ -46,8 +51,8 @@ public class StockListFragment extends Fragment {
                     for (int i = 0; i < cryptos.size(); i++) {
                         tekst.add(cryptos.get(i).getTicker() + "   (" + cryptos.get(i).getName() + ")   " + cryptos.get(i).getChanges());
                     }
-                    ListView listView = (ListView) view.findViewById(R.id.soort);
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
+                    listView = (ListView) view.findViewById(R.id.soort);
+                    arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
                     listView.setAdapter(arrayAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -82,8 +87,8 @@ public class StockListFragment extends Fragment {
                     for (int i = 0; i < forexes.size(); i++) {
                         tekst.add(forexes.get(i).getTicker());
                     }
-                    ListView listView = (ListView) view.findViewById(R.id.soort);
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
+                    listView = (ListView) view.findViewById(R.id.soort);
+                    arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
                     listView.setAdapter(arrayAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -108,6 +113,7 @@ public class StockListFragment extends Fragment {
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/forex");
         } else if (soort == "company") {
+
             HttpReader httpReader = new HttpReader();
             httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
                 @Override
@@ -123,8 +129,8 @@ public class StockListFragment extends Fragment {
                         }
                         tekst.add(companies.get(i).getSymbol() + ": " + company + "      Price:" + companies.get(i).getPrice());
                     }
-                    ListView listView = (ListView) view.findViewById(R.id.soort);
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
+                    listView = (ListView) view.findViewById(R.id.soort);
+                    arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, tekst);
                     listView.setAdapter(arrayAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -149,6 +155,23 @@ public class StockListFragment extends Fragment {
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/company/stock/list");
         }
+        sv =(SearchView)view.findViewById(R.id.search);
+        sv.setQueryHint("Search...");
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                arrayAdapter.getFilter().filter(query);
+                Log.e("test123",query);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String text) {
+                arrayAdapter.getFilter().filter(text);
+                Log.e("test123",text);
+
+                return false;
+            }
+        });
 
         return view;
     }

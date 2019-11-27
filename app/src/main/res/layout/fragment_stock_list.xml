@@ -4,11 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StockListFragment">
-
-    <ListView
-        android:id="@+id/soort"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="1dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ListView
+            android:id="@+id/soort"
+            android:layout_width="match_parent"
+            android:layout_height="659dp"
+            android:dividerHeight="1dp" />
+    </LinearLayout>
+
 
 </FrameLayout>
