@@ -18,6 +18,4 @@
             android:layout_height="659dp"
             android:dividerHeight="1dp" />
     </LinearLayout>
-
-
 </FrameLayout>

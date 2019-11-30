@@ -43,7 +43,7 @@ public class SelectedCompanyFragment extends Fragment {
                 textViewTitle.setText(company.getName());
 
                 ImageView imageViewImage= (ImageView)view.findViewById(R.id.image);
-             Picasso.get().load(company.getImage()).into(imageViewImage);
+                Picasso.get().load(company.getImage()).into(imageViewImage);
 
                 TextView textViewPrice= (TextView)view.findViewById(R.id.price);
                 textViewPrice.setText(company.getPrice().toString());

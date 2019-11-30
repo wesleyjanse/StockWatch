@@ -33,39 +33,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // hierin de tables creëren en opvullen met gegevens
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_FAVORITECOMPANY = "CREATE TABLE favoritecompany (" +
-                "id INTEGER PRIMARY KEY," +
-                "name TEXT)";
+        String CREATE_TABLE_FAVORITECOMPANY = "CREATE TABLE favoriteCompany(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "symbol TEXT," +
+                "name TEXT," +
+                "price REAL," +
+                "beta REAL," +
+                "volAvg REAL," +
+                "mktCap REAL," +
+                "lastDiv REAL," +
+                "range TEXT," +
+                "changes REAL," +
+                "changesPercentage REAL," +
+                "exchange TEXT," +
+                "description TEXT," +
+                "industry TEXT," +
+                "website TEXT," +
+                "ceo TEXT," +
+                "sector TEXT," +
+                "image TEXT)";
         db.execSQL(CREATE_TABLE_FAVORITECOMPANY);
-        String CREATE_TABLE_FAVORITECRYPTO = "CREATE TABLE favoritecrypto (" +
-                "id INTEGER PRIMARY KEY," +
-                "name TEXT)";
-        db.execSQL(CREATE_TABLE_FAVORITECOMPANY);
-        String CREATE_TABLE_FAVORITEFOREX = "CREATE TABLE favoriteforex (" +
-                "id INTEGER PRIMARY KEY," +
-                "name TEXT)";
-        db.execSQL(CREATE_TABLE_FAVORITECOMPANY);
+
+        String CREATE_TABLE_FAVORITECRYPTO = "CREATE TABLE favoriteCrypto(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "ticker TEXT," +
+                "name TEXT," +
+                "price REAL," +
+                "changes REAL," +
+                "marketCapitalization REAL)";
         db.execSQL(CREATE_TABLE_FAVORITECRYPTO);
+
+        String CREATE_TABLE_FAVORITEFOREX = "CREATE TABLE favoriteForex(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "ticker TEXT," +
+                "bid REAL," +
+                "ask REAL," +
+                "open REAL," +
+                "low REAL," +
+                "high REAL," +
+                "changes REAL," +
+                "date TEXT)";
         db.execSQL(CREATE_TABLE_FAVORITEFOREX);
 
-
-        insertFavorite(db);
+        //insertFavoriteCompany(db);
+        insertFavoriteCrypto(db);
+        //insertFavoriteForex(db);
     }
 
     //private void insertFavorite(SQLiteDatabase db, Crypto crypto, Forex forex, Company company) {
     //}
-    private void insertFavorite(SQLiteDatabase db) {
+//    private void insertFavoriteCompany(SQLiteDatabase db) {
+//
+//    }
+
+    private void insertFavoriteCrypto(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO favoriteCrypto (id, ticker, name, price, changes, marketCapitalization) VALUES " +
+                "(0,'BTC', 'Bitcoin', 7544.64, -0.09, 13635900000)," +
+                "(0,'ETH', 'Etherium', 754, 0.29, 13635900);");
+
+//        db.execSQL("INSERT INTO favoriteCrypto (id, ticker, name, price, changes, marketCapitalization) VALUES (2,'ETH', 'Etherium', 750.64, 0.50, 13635900000);");
     }
+
+//    private void insertFavoriteForex(SQLiteDatabase db) {
+//    }
 
 
     // methode wordt uitgevoerd als database geupgrade wordt
     // hierin de vorige tabellen wegdoen en opnieuw creëren
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS favoritecompany");
-        db.execSQL("DROP TABLE IF EXISTS favoritecrypto");
-        db.execSQL("DROP TABLE IF EXISTS favoriteforex");
-
+        db.execSQL("DROP TABLE IF EXISTS favoriteCrypto");
         // Create tables again
         onCreate(db);
     }
@@ -75,19 +112,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //-------------------------------------------------------------------------------------------------
 
     // insert-methode met ContentValues
-    //   public long insertPresident(President president) {
-    //       SQLiteDatabase db = this.getWritableDatabase();
-//
-    //      ContentValues values = new ContentValues();
-    //    values.put("name", president.getName());
-    //  values.put("term", president.getTerm());
-    //values.put("partyId", president.getPartyId());
-//
-    //      long id = db.insert("president", null, values);
-//
-    //      db.close();
-    //    return id;
-    //}
+    public long insertCrypto(Crypto crypto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("ticker", crypto.getTicker());
+        values.put("name", crypto.getName());
+        values.put("price", crypto.getPrice());
+        values.put("changes", crypto.getChanges());
+        values.put("marketCapitalization", crypto.getMarketCapitalization());
+
+        long id = db.insert("favoriteCrypto", null, values);
+
+        db.close();
+        return id;
+    }
 
     // update-methode met ContentValues
 //    public boolean updatePresident(President president) {
@@ -121,51 +160,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //   }
 //
     // query-methode
-    //   public President getPresident(long id) {
-    //     SQLiteDatabase db = this.getReadableDatabase();
-//
-    //      Cursor cursor = db.query(
-    //            "president",      // tabelnaam
-    //          new String[] { "id", "name", "term", "partyId" }, // kolommen
-    //        "id = ?",  // selectie
-    //      new String[] { String.valueOf(id) }, // selectieparameters
-    //    null,           // groupby
-    //  null,           // having
-//                null,           // sorting
-    //              null);          // ??
+    public Crypto getCryptoByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    //    President president = new President();
-//
-    //      if (cursor.moveToFirst()) {
-    //        president = new President(cursor.getLong(0),
-    //              cursor.getString(1), cursor.getString(2), cursor.getLong(3));
-    //}
-//        cursor.close();
-    //      db.close();
-    //    return president;
-    //   }
-//
+        Cursor cursor = db.query(
+                "favoriteCrypto",      // tabelnaam
+                new String[]{"id", "ticker", "name", "price", "changes", "marketCapitalization"}, // kolommen
+                "name = ?",  // selectie
+                new String[]{name}, // selectieparameters
+                null,           // groupby
+                null,           // having
+                null,           // sorting
+                null);          // ??
+
+        Crypto crypto = new Crypto();
+
+        if (cursor.moveToFirst()) {
+            crypto = new Crypto(cursor.getInt(0), cursor.getString(1),
+                    cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getInt(5));
+        }
+        cursor.close();
+        db.close();
+        return crypto;
+    }
+
+    //
     // rawQuery-methode
-    //  public List<President> getPresidents() {
-    //    List<President> lijst = new ArrayList<President>();
+    public List<Crypto> getCryptos() {
+        List<Crypto> lijst = new ArrayList<Crypto>();
 
-    //  String selectQuery = "SELECT  * FROM president ORDER BY term";
+        String selectQuery = "SELECT  * FROM favoriteCrypto ORDER BY name";
 
-    //SQLiteDatabase db = this.getReadableDatabase();
-    //       Cursor cursor = db.rawQuery(selectQuery, null);
-//
-    //      if (cursor.moveToFirst()) {
-    //        do {
-    //          President president = new President(cursor.getLong(0),
-    //                cursor.getString(1), cursor.getString(2), cursor.getLong(3));
-    //      lijst.add(president);
-    //} while (cursor.moveToNext());
-    //    }
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-//        cursor.close();
-    //      db.close();
-    //    return lijst;
-    //   //}
+        if (cursor.moveToFirst()) {
+            do {
+                Crypto crypto = new Crypto(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getInt(5));
+                lijst.add(crypto);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lijst;
+    }
 
     // rawQuery-methode
     //   public List<Party> getParties() {

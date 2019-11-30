@@ -1,6 +1,7 @@
 package be.thomasmore.stockwatch.models;
 
 public class Forex {
+    private int id;
     private String ticker;
     private double bid;
     private double ask;
@@ -14,7 +15,8 @@ public class Forex {
 
     }
 
-    public Forex(String ticker, double bid, double ask, double open, double low, double high, double changes, String date) {
+    public Forex(int id, String ticker, double bid, double ask, double open, double low, double high, double changes, String date) {
+        this.id = id;
         this.ticker = ticker;
         this.bid = bid;
         this.ask = ask;
@@ -23,6 +25,14 @@ public class Forex {
         this.high = high;
         this.changes = changes;
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTicker() {

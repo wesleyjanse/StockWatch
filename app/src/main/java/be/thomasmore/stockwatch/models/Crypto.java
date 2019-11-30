@@ -1,6 +1,9 @@
 package be.thomasmore.stockwatch.models;
 
+import androidx.annotation.NonNull;
+
 public class Crypto {
+    private int id;
     private String ticker;
     private String name;
     private Double price;
@@ -11,12 +14,21 @@ public class Crypto {
 
     }
 
-    public Crypto(String ticker, String name, Double price, Double changes, int marketCapitalization) {
+    public Crypto(int id, String ticker, String name, Double price, Double changes, int marketCapitalization) {
+        this.id = id;
         this.ticker = ticker;
         this.name = name;
         this.price = price;
         this.changes = changes;
         this.marketCapitalization = marketCapitalization;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTicker() {
@@ -57,5 +69,11 @@ public class Crypto {
 
     public void setMarketCapitalization(int marketCapitalization) {
         this.marketCapitalization = marketCapitalization;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getTicker() + ": " + getName();
     }
 }

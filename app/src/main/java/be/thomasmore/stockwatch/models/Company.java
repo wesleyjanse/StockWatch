@@ -2,6 +2,7 @@ package be.thomasmore.stockwatch.models;
 
 public class Company {
 
+    private int id;
     private String symbol;
     private String name;
     private Double price;
@@ -24,24 +25,34 @@ public class Company {
 
     }
 
-    public Company(String symbol, String name, Double price,Double beta, int volAvg,Double mktCap, Double lastDiv, String range, String changesPercentage, String exchange, String industry, String website,String description,String ceo, String sector, String image,Double changes) {
+
+    public Company(int id, String symbol, String name, Double price, Double beta, int volAvg, Double mktCap, Double lastDiv, String range, Double changes, String changesPercentage, String exchange, String industry, String website, String description, String ceo, String sector, String image) {
+        this.id = id;
         this.symbol = symbol;
         this.name = name;
         this.price = price;
-        this.beta=beta;
-        this.volAvg=volAvg;
-        this.mktCap=mktCap;
-        this.lastDiv=lastDiv;
-        this.range=range;
-        this.changesPercentage=changesPercentage;
-        this.exchange=exchange;
-        this.industry=industry;
-        this.website=website;
-        this.description=description;
-        this.ceo=ceo;
-        this.sector=sector;
-        this.image=image;
-        this.changes=changes;
+        this.beta = beta;
+        this.volAvg = volAvg;
+        this.mktCap = mktCap;
+        this.lastDiv = lastDiv;
+        this.range = range;
+        this.changes = changes;
+        this.changesPercentage = changesPercentage;
+        this.exchange = exchange;
+        this.industry = industry;
+        this.website = website;
+        this.description = description;
+        this.ceo = ceo;
+        this.sector = sector;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSymbol() {
