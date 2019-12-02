@@ -58,7 +58,7 @@ public class SelectedCompanyFragment extends Fragment {
                 Picasso.get().load(company.getImage()).into(imageViewImage);
 
                 TextView textViewPrice = (TextView) view.findViewById(R.id.price);
-                textViewPrice.setText(getText(R.string.detail_price) + company.getPrice().toString());
+                textViewPrice.setText(getResources().getText(R.string.detail_price) + company.getPrice().toString());
 
                 TextView textViewChange = (TextView) view.findViewById(R.id.change);
                 textViewChange.setText(getResources().getText(R.string.detail_change) + company.getChanges().toString() + " " + company.getChangesPercentage());
