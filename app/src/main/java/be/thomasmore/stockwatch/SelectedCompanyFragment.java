@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +34,13 @@ import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;
 import be.thomasmore.stockwatch.models.Company;
 import be.thomasmore.stockwatch.models.Crypto;
+import be.thomasmore.stockwatch.models.HistoryCompany;
 
 
 public class SelectedCompanyFragment extends Fragment {
     private DatabaseHelper db;
     private Company company;
+    private List<HistoryCompany> historyCompany;
 
     @Nullable
     @Override
@@ -131,20 +136,44 @@ public class SelectedCompanyFragment extends Fragment {
                 }
             }
         });
-        final GraphView graph = (GraphView) view.findViewById(R.id.graph);
-        graph.setVisibility(View.VISIBLE);
-        try {
-            LineGraphSeries <DataPoint> series = new LineGraphSeries< >(new DataPoint[] {
-                    new DataPoint(0, 1),
-                    new DataPoint(1, 0),
-                    new DataPoint(2, 3),
-                    new DataPoint(3, 4),
-                    new DataPoint(4, 2)
-            });
-            graph.addSeries(series);
-        } catch (IllegalArgumentException e) {
+        HttpReader httpReader2 = new HttpReader();
+        httpReader2.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
+            @Override
+            public void resultReady(String result) {
+                JsonHelper jsonHelper = new JsonHelper();
+                historyCompany = jsonHelper.getHistoryCompany(result);
+                final GraphView graph = (GraphView) view.findViewById(R.id.graph);
+                graph.setVisibility(View.VISIBLE);
+                try {
+                    LineGraphSeries <DataPoint> series = new LineGraphSeries< >();
+                    int teller = 0;
+                    for (HistoryCompany history : historyCompany) {
 
-        }
+                        DataPoint datapoint = new DataPoint(teller,history.getClose()*100);
+                        series.appendData(datapoint,false,9999,false);
+                        teller++;
+                    }
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                // show normal x values
+                                return super.formatLabel(value, isValueX);
+                            } else {
+                                // show currency for y values
+                                return "$"+super.formatLabel(value/100, isValueX);
+                            }
+                        }
+                    });
+                } catch (IllegalArgumentException e) {
+
+                }
+            }
+        });
+
+        httpReader2.execute("https://financialmodelingprep.com/api/v3/historical-price-full/"+stock+"?serietype=line");
+
         return view;
     }
 }

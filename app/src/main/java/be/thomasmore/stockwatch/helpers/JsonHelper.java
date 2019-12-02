@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.thomasmore.stockwatch.MainActivity;
+import be.thomasmore.stockwatch.models.HistoryCompany;
 import be.thomasmore.stockwatch.models.News;
 import be.thomasmore.stockwatch.models.Company;
 import be.thomasmore.stockwatch.models.Crypto;
@@ -171,6 +172,26 @@ public class JsonHelper extends MainActivity {
                 news.setUrl(jsonObjectCompany.getString("url"));
                 news.setUrlToImage(jsonObjectCompany.getString("urlToImage"));
                 lijst.add(news);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return lijst;
+
+    }
+    public ArrayList<HistoryCompany> getHistoryCompany(String jsonTekst) {
+        ArrayList<HistoryCompany> lijst = new ArrayList<HistoryCompany>();
+
+        try {
+            JSONObject tussenStapJson = new JSONObject(jsonTekst);
+            JSONArray jsonArrayHistory = tussenStapJson.getJSONArray("historical");
+            for (int i = 0; i < jsonArrayHistory.length(); i++) {
+                JSONObject jsonObjectHistory = jsonArrayHistory.getJSONObject(i);
+
+                HistoryCompany historyCompany = new HistoryCompany();
+                historyCompany.setDate(jsonObjectHistory.getString("date"));
+                historyCompany.setClose(jsonObjectHistory.getDouble("close"));
+                lijst.add(historyCompany);
             }
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
