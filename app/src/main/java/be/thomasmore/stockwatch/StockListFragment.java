@@ -41,6 +41,23 @@ public class StockListFragment extends Fragment {
 
         Bundle args = getArguments();
         String soort = args.getString("Soort", "");
+        sv =(SearchView)view.findViewById(R.id.search);
+        sv.setQueryHint("Search...");
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                arrayAdapter.getFilter().filter(query);
+                Log.e("test123",query);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String text) {
+                arrayAdapter.getFilter().filter(text);
+                Log.e("test123",text);
+
+                return false;
+            }
+        });
         if (soort == "crypto") {
             HttpReader httpReader = new HttpReader();
             httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
@@ -58,7 +75,7 @@ public class StockListFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            string = tekst.get(position);
+                            string = (String) arrayAdapter.getItem(position);
                             int index = string.indexOf("   ");
                             if (index != -1) {
                                 subString = string.substring(0, index);
@@ -94,7 +111,7 @@ public class StockListFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            string = tekst.get(position);
+                            string = (String) arrayAdapter.getItem(position);
                             int index = string.indexOf("/");
                             if (index != -1) {
                                 subString = string.substring(0, index)+string.substring(index+1);
@@ -136,7 +153,7 @@ public class StockListFragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            string = tekst.get(position);
+                            string = (String) arrayAdapter.getItem(position);
                             int index = string.indexOf(": ");
                             if (index != -1) {
                                 subString = string.substring(0, index);
@@ -155,24 +172,6 @@ public class StockListFragment extends Fragment {
             });
             httpReader.execute("https://financialmodelingprep.com/api/v3/company/stock/list");
         }
-        sv =(SearchView)view.findViewById(R.id.search);
-        sv.setQueryHint("Search...");
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                arrayAdapter.getFilter().filter(query);
-                Log.e("test123",query);
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String text) {
-                arrayAdapter.getFilter().filter(text);
-                Log.e("test123",text);
-
-                return false;
-            }
-        });
-
         return view;
     }
 

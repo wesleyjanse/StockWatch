@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -128,6 +131,20 @@ public class SelectedCompanyFragment extends Fragment {
                 }
             }
         });
+        final GraphView graph = (GraphView) view.findViewById(R.id.graph);
+        graph.setVisibility(View.VISIBLE);
+        try {
+            LineGraphSeries <DataPoint> series = new LineGraphSeries< >(new DataPoint[] {
+                    new DataPoint(0, 1),
+                    new DataPoint(1, 0),
+                    new DataPoint(2, 3),
+                    new DataPoint(3, 4),
+                    new DataPoint(4, 2)
+            });
+            graph.addSeries(series);
+        } catch (IllegalArgumentException e) {
+
+        }
         return view;
     }
 }
