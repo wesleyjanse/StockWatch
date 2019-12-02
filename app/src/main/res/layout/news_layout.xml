@@ -38,10 +38,18 @@
 
             <Button
                 android:id="@+id/url"
+                android:layout_alignRight="@id/description"
+                android:text="To article"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@id/description"
-                android:text="To article" />
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary"
+                android:drawableTint="@android:color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:shadowColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/white"
+                />
         </LinearLayout>
 
         <ImageView
