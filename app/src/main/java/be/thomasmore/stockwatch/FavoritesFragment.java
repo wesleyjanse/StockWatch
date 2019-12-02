@@ -23,7 +23,9 @@ import java.util.List;
 
 import be.thomasmore.stockwatch.adapters.CustomExpandableListAdapter;
 import be.thomasmore.stockwatch.helpers.DatabaseHelper;
+import be.thomasmore.stockwatch.models.Company;
 import be.thomasmore.stockwatch.models.Crypto;
+import be.thomasmore.stockwatch.models.Forex;
 
 public class FavoritesFragment extends Fragment {
     private DatabaseHelper db;
@@ -42,6 +44,8 @@ public class FavoritesFragment extends Fragment {
                 container, false);
         expandableListDetail = new HashMap<>();
         readCryptos();
+        readCompanies();
+        readForexes();
         expandableListView = (ExpandableListView) view.findViewById(R.id.favorites);
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
@@ -62,7 +66,38 @@ public class FavoritesFragment extends Fragment {
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-
+                if (expandableListTitle.get(groupPosition) == "Company"){
+                    String tekst = expandableListDetail.get(
+                            expandableListTitle.get(groupPosition)).get(
+                            childPosition);
+                    String subString = tekst.substring(0, tekst.indexOf(':'));
+                    Fragment selectedCompany = new SelectedCompanyFragment();
+                    Bundle args = new Bundle();
+                    args.putString("Stock", subString);
+                    selectedCompany.setArguments(args);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, selectedCompany); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                if (expandableListTitle.get(groupPosition) == "Forex"){
+                    String string = expandableListDetail.get(
+                            expandableListTitle.get(groupPosition)).get(
+                            childPosition);
+                    String subString = "";
+                    int index = string.indexOf("/");
+                    if (index != -1) {
+                        subString = string.substring(0, index)+string.substring(index+1);
+                    }
+                    Fragment selectedFedex = new SelectedFedexFragment();
+                    Bundle args = new Bundle();
+                    args.putString("Stock", subString);
+                    selectedFedex.setArguments(args);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, selectedFedex); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
                 return false;
             }
         });
@@ -79,5 +114,25 @@ public class FavoritesFragment extends Fragment {
         }
 
         expandableListDetail.put("Crypto", cryptosText);
+    }
+
+    private void readCompanies(){
+        final List<Company> companies = db.getCompanies();
+        List<String> companiesText = new ArrayList<>();
+        for (Company company : companies) {
+            companiesText.add(company.getSymbol() + ": " + company.getName());
+        }
+
+        expandableListDetail.put("Company", companiesText);
+    }
+
+    private void readForexes(){
+        final List<Forex> forexes = db.getForex();
+        List<String> forexText = new ArrayList<>();
+        for (Forex forex : forexes) {
+            forexText.add(forex.getTicker());
+        }
+
+        expandableListDetail.put("Forex", forexText);
     }
 }

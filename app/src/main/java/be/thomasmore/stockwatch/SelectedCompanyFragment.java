@@ -1,5 +1,6 @@
 package be.thomasmore.stockwatch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -15,19 +16,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import be.thomasmore.stockwatch.helpers.DatabaseHelper;
 import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;
 import be.thomasmore.stockwatch.models.Company;
+import be.thomasmore.stockwatch.models.Crypto;
 
 
 public class SelectedCompanyFragment extends Fragment {
+    private DatabaseHelper db;
+    private Company company;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        db = new DatabaseHelper(getActivity());
         final View view= inflater.inflate(R.layout.fragment_selected_company, container, false);
         Bundle args = getArguments();
         String stock= args.getString("Stock","");
@@ -36,7 +46,7 @@ public class SelectedCompanyFragment extends Fragment {
             @Override
             public void resultReady(String result) {
                 JsonHelper jsonHelper = new JsonHelper();
-                final Company company = jsonHelper.getCompany(result);
+                company = jsonHelper.getCompany(result);
 
                 TextView textViewTitle= (TextView)view.findViewById(R.id.companyTitle);
                 textViewTitle.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -87,6 +97,40 @@ public class SelectedCompanyFragment extends Fragment {
             }
         });
         httpReader.execute("https://financialmodelingprep.com/api/v3/company/profile/"+stock);
+
+        Button add = (Button) view.findViewById(R.id.favorites);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Company> companies = db.getCompanies();
+                List<String> names = new ArrayList<>();
+                for (Company company: companies){
+                    names.add(company.getName());
+                }
+
+                if (!names.contains(company.getName())){
+                    Company newC = new Company(0, company.getSymbol(), company.getName(), company.getPrice(),
+                            company.getBeta(), company.getVolAvg(), company.getMktCap(),
+                            company.getLastDiv(), company.getRange(), company.getChanges(),
+                            company.getChangesPercentage(), company.getExchange(), company.getIndustry(),
+                            company.getWebsite(), company.getDescription(), company.getCeo(),
+                            company.getSector(), company.getImage());
+                    db.insertCompany(newC);
+                    CharSequence text = "Company added to your favorites!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                } else{
+                    Context context = getActivity();
+                    CharSequence text = "Company already favorited!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
         return view;
     }
 }

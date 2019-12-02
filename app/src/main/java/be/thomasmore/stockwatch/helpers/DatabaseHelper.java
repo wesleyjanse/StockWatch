@@ -39,16 +39,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT," +
                 "price REAL," +
                 "beta REAL," +
-                "volAvg REAL," +
+                "volAvg INTEGER," +
                 "mktCap REAL," +
                 "lastDiv REAL," +
                 "range TEXT," +
                 "changes REAL," +
-                "changesPercentage REAL," +
+                "changesPercentage TEXT," +
                 "exchange TEXT," +
-                "description TEXT," +
                 "industry TEXT," +
                 "website TEXT," +
+                "description TEXT," +
                 "ceo TEXT," +
                 "sector TEXT," +
                 "image TEXT)";
@@ -74,29 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "changes REAL," +
                 "date TEXT)";
         db.execSQL(CREATE_TABLE_FAVORITEFOREX);
-
-        //insertFavoriteCompany(db);
-        insertFavoriteCrypto(db);
-        //insertFavoriteForex(db);
     }
-
-    //private void insertFavorite(SQLiteDatabase db, Crypto crypto, Forex forex, Company company) {
-    //}
-//    private void insertFavoriteCompany(SQLiteDatabase db) {
-//
-//    }
-
-    private void insertFavoriteCrypto(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO favoriteCrypto (id, ticker, name, price, changes, marketCapitalization) VALUES " +
-                "(0,'BTC', 'Bitcoin', 7544.64, -0.09, 13635900000)," +
-                "(0,'ETH', 'Etherium', 754, 0.29, 13635900);");
-
-//        db.execSQL("INSERT INTO favoriteCrypto (id, ticker, name, price, changes, marketCapitalization) VALUES (2,'ETH', 'Etherium', 750.64, 0.50, 13635900000);");
-    }
-
-//    private void insertFavoriteForex(SQLiteDatabase db) {
-//    }
-
 
     // methode wordt uitgevoerd als database geupgrade wordt
     // hierin de vorige tabellen wegdoen en opnieuw creëren
@@ -111,6 +89,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //  CRUD Operations
     //-------------------------------------------------------------------------------------------------
 
+
+    public long insertForex(Forex forex) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("ticker", forex.getTicker());
+        values.put("bid", forex.getBid());
+        values.put("ask", forex.getAsk());
+        values.put("open", forex.getOpen());
+        values.put("low", forex.getLow());
+        values.put("high", forex.getHigh());
+        values.put("changes", forex.getChanges());
+        values.put("date", forex.getDate());
+
+        long id = db.insert("favoriteForex", null, values);
+
+        db.close();
+        return id;
+    }
+
     // insert-methode met ContentValues
     public long insertCrypto(Crypto crypto) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -123,6 +121,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("marketCapitalization", crypto.getMarketCapitalization());
 
         long id = db.insert("favoriteCrypto", null, values);
+
+        db.close();
+        return id;
+    }
+
+    public long insertCompany(Company company) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("symbol", company.getSymbol());
+        values.put("name", company.getName());
+        values.put("price", company.getPrice());
+        values.put("beta", company.getBeta());
+        values.put("volAvg", company.getVolAvg());
+        values.put("mktCap", company.getMktCap());
+        values.put("lastDiv", company.getLastDiv());
+        values.put("range", company.getRange());
+        values.put("changes", company.getChanges());
+        values.put("changesPercentage", company.getChangesPercentage());
+        values.put("exchange", company.getExchange());
+        values.put("industry", company.getIndustry());
+        values.put("website", company.getWebsite());
+        values.put("description", company.getDescription());
+        values.put("ceo", company.getCeo());
+        values.put("sector", company.getSector());
+        values.put("image", company.getImage());
+
+        long id = db.insert("favoriteCompany", null, values);
 
         db.close();
         return id;
@@ -199,6 +225,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Crypto crypto = new Crypto(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getInt(5));
                 lijst.add(crypto);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lijst;
+    }
+
+    public List<Company> getCompanies() {
+        List<Company> lijst = new ArrayList<Company>();
+
+        String selectQuery = "SELECT  * FROM favoriteCompany ORDER BY symbol";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Company company = new Company(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getDouble(3), cursor.getDouble(4), cursor.getInt(5),
+                        cursor.getDouble(6), cursor.getDouble(7), cursor.getString(8), cursor.getDouble(9),
+                        cursor.getString(10), cursor.getString(11),cursor.getString(12),cursor.getString(13),cursor.getString(14),cursor.getString(14),cursor.getString(16), cursor.getString(17));
+                lijst.add(company);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lijst;
+    }
+
+    public List<Forex> getForex() {
+        List<Forex> lijst = new ArrayList<Forex>();
+
+        String selectQuery = "SELECT  * FROM favoriteForex ORDER BY ticker";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Forex forex = new Forex(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3),
+                        cursor.getDouble(4), cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7), cursor.getString(8));
+                lijst.add(forex);
             } while (cursor.moveToNext());
         }
 

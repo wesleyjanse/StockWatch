@@ -67,7 +67,6 @@ public class SelectedCryptoFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("dataCr", currentCrypto.getName() + " added?");
                 List<Crypto> cryptos = db.getCryptos();
                 List<String> names = new ArrayList<>();
                 for (Crypto crypto: cryptos){
@@ -77,9 +76,14 @@ public class SelectedCryptoFragment extends Fragment {
                 if (!names.contains(currentCrypto.getName())){
                     Crypto newC = new Crypto(0, currentCrypto.getTicker(), currentCrypto.getName(), currentCrypto.getPrice(), currentCrypto.getChanges(), currentCrypto.getMarketCapitalization());
                     db.insertCrypto(newC);
+                    CharSequence text = "Cryptocurrency added to your favorites!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
                 } else{
                     Context context = getActivity();
-                    CharSequence text = "Item already favorited!";
+                    CharSequence text = "Cryptocurrency already favorited!";
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);
