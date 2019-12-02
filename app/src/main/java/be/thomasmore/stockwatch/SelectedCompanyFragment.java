@@ -38,9 +38,9 @@ public class SelectedCompanyFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         db = new DatabaseHelper(getActivity());
-        final View view= inflater.inflate(R.layout.fragment_selected_company, container, false);
+        final View view = inflater.inflate(R.layout.fragment_selected_company, container, false);
         Bundle args = getArguments();
-        String stock= args.getString("Stock","");
+        String stock = args.getString("Stock", "");
         HttpReader httpReader = new HttpReader();
         httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
             @Override
@@ -48,43 +48,40 @@ public class SelectedCompanyFragment extends Fragment {
                 JsonHelper jsonHelper = new JsonHelper();
                 company = jsonHelper.getCompany(result);
 
-                TextView textViewTitle= (TextView)view.findViewById(R.id.companyTitle);
-                textViewTitle.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                TextView textViewTitle = (TextView) view.findViewById(R.id.companyTitle);
                 textViewTitle.setText(company.getName());
 
-                ImageView imageViewImage= (ImageView)view.findViewById(R.id.image);
+                ImageView imageViewImage = (ImageView) view.findViewById(R.id.image);
                 Picasso.get().load(company.getImage()).into(imageViewImage);
 
-                TextView textViewPrice= (TextView)view.findViewById(R.id.price);
-                textViewPrice.setText(company.getPrice().toString());
+                TextView textViewPrice = (TextView) view.findViewById(R.id.price);
+                textViewPrice.setText(getText(R.string.detail_price) + company.getPrice().toString());
 
-                TextView textViewChange= (TextView)view.findViewById(R.id.change);
-                textViewChange.setText(company.getChanges().toString());
-                TextView textViewExchange= (TextView)view.findViewById(R.id.exchange);
-                textViewExchange.setText(company.getExchange());
+                TextView textViewChange = (TextView) view.findViewById(R.id.change);
+                textViewChange.setText(getResources().getText(R.string.detail_change) + company.getChanges().toString() + " " + company.getChangesPercentage());
 
-                TextView textViewChangePerc= (TextView)view.findViewById(R.id.changePercentage);
-                textViewChangePerc.setText(company.getChangesPercentage());
+                TextView textViewExchange = (TextView) view.findViewById(R.id.exchange);
+                textViewExchange.setText(getResources().getText(R.string.detail_exchange) + company.getExchange());
 
-                TextView textViewDescription= (TextView)view.findViewById(R.id.description);
+                TextView textViewDescription = (TextView) view.findViewById(R.id.description);
                 textViewDescription.setText(company.getDescription());
 
-                TextView textViewCeo= (TextView)view.findViewById(R.id.ceo);
-                if (company.getCeo().equals("")){
-                    textViewCeo.setText("No CEO found");
-                }else{
-                    textViewCeo.setText(company.getCeo());
+                TextView textViewCeo = (TextView) view.findViewById(R.id.ceo);
+                if (company.getCeo().equals("")) {
+                    textViewCeo.setText(getResources().getText(R.string.detail_ceo) + "No CEO found");
+                } else {
+                    textViewCeo.setText(getResources().getText(R.string.detail_ceo) + company.getCeo());
                 }
 
-                TextView textViewSector= (TextView)view.findViewById(R.id.sector);
-                if (company.getSector().equals("")){
-                    textViewSector.setText("No sector found");
-                }else{
-                    textViewSector.setText(company.getSector());
+                TextView textViewSector = (TextView) view.findViewById(R.id.sector);
+                if (company.getSector().equals("")) {
+                    textViewSector.setText(getResources().getText(R.string.detail_Sector) + "No sector found");
+                } else {
+                    textViewSector.setText(getResources().getText(R.string.detail_Sector) + company.getSector());
                 }
-                Button websiteButton = (Button)view.findViewById(R.id.website);
+                Button websiteButton = (Button) view.findViewById(R.id.website);
 
-                websiteButton.setOnClickListener(new View.OnClickListener(){
+                websiteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -96,7 +93,7 @@ public class SelectedCompanyFragment extends Fragment {
 
             }
         });
-        httpReader.execute("https://financialmodelingprep.com/api/v3/company/profile/"+stock);
+        httpReader.execute("https://financialmodelingprep.com/api/v3/company/profile/" + stock);
 
         Button add = (Button) view.findViewById(R.id.favorites);
         add.setOnClickListener(new View.OnClickListener() {
@@ -104,11 +101,11 @@ public class SelectedCompanyFragment extends Fragment {
             public void onClick(View v) {
                 List<Company> companies = db.getCompanies();
                 List<String> names = new ArrayList<>();
-                for (Company company: companies){
+                for (Company company : companies) {
                     names.add(company.getName());
                 }
 
-                if (!names.contains(company.getName())){
+                if (!names.contains(company.getName())) {
                     Company newC = new Company(0, company.getSymbol(), company.getName(), company.getPrice(),
                             company.getBeta(), company.getVolAvg(), company.getMktCap(),
                             company.getLastDiv(), company.getRange(), company.getChanges(),
@@ -121,7 +118,7 @@ public class SelectedCompanyFragment extends Fragment {
 
                     Toast toast = Toast.makeText(getActivity(), text, duration);
                     toast.show();
-                } else{
+                } else {
                     Context context = getActivity();
                     CharSequence text = "Company already favorited!";
                     int duration = Toast.LENGTH_SHORT;

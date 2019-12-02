@@ -27,6 +27,15 @@ welke strings bij welk fragment/activity/usecase horen-->
     <string name="app_label">test</string>
     <string name="search_hint">123</string>
 
+<!--    Detail-->
+    <string name="detail_change"><b>Change: </b></string>
+    <string name="detail_price"><b>Price: $</b></string>
+    <string name="detail_exchange"><b>Exchange: </b></string>
+    <string name="detail_ceo"><b>CEO: </b></string>
+    <string name="detail_Sector"><b>Sector: </b></string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_searchable">SearchableActivity</string>

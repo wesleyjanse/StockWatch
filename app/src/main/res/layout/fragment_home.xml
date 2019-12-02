@@ -6,32 +6,13 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-<!--    <Button-->
-<!--        android:id="@+id/search"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:drawableRight="@android:drawable/ic_menu_search"-->
-<!--        android:paddingLeft="30sp"-->
-<!--        android:text="Search"-->
-<!--        android:textAlignment="textStart"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textSize="25sp" />-->
-
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:text="Stocks:"-->
-<!--        android:textSize="20sp" />-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:shadowColor="#7F000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -48,48 +29,48 @@
 
         <Button
             android:id="@+id/company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:drawableRight="@drawable/ic_right"
-            android:paddingLeft="30sp"
             android:text="Companies"
-            android:textColor="@color/logoColor"
-            android:drawableTint="@color/logoColor"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textSize="25sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:drawableTint="@android:color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light" />
 
         <Button
             android:id="@+id/crypto"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:textColor="@color/logoColor"
-            android:drawableTint="@color/logoColor"
             android:drawableRight="@drawable/ic_right"
-            android:paddingLeft="30sp"
             android:text="CryptoCurrencies"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textSize="25sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:drawableTint="@android:color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"
+            />
 
         <Button
             android:id="@+id/exchange"
-            android:textColor="@color/logoColor"
-            android:drawableTint="@color/logoColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:drawableRight="@drawable/ic_right"
-            android:paddingLeft="30sp"
             android:text="Exchanges"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textSize="25sp" />
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:drawableTint="@android:color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"
+            android:shadowColor="@android:color/holo_blue_light"  />
 
 
     </LinearLayout>
