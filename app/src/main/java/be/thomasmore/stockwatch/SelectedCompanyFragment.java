@@ -26,6 +26,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
 import java.io.Console;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,7 +151,7 @@ public class SelectedCompanyFragment extends Fragment {
                     for (HistoryCompany history : historyCompany) {
 
                         DataPoint datapoint = new DataPoint(teller,history.getClose()*100);
-                        series.appendData(datapoint,false,9999,false);
+                        series.appendData(datapoint,false,999999,false);
                         teller++;
                     }
                     graph.addSeries(series);
@@ -159,7 +160,9 @@ public class SelectedCompanyFragment extends Fragment {
                         public String formatLabel(double value, boolean isValueX) {
                             if (isValueX) {
                                 // show normal x values
-                                return super.formatLabel(value, isValueX);
+                                String xWaarde = historyCompany.get((int)value).getDate();
+                                String[] tussenBerekening = xWaarde.split("-");
+                                return tussenBerekening[2]+"/"+tussenBerekening[1]+"/'"+tussenBerekening[0].substring(2);
                             } else {
                                 // show currency for y values
                                 return "$"+super.formatLabel(value/100, isValueX);
@@ -167,8 +170,11 @@ public class SelectedCompanyFragment extends Fragment {
                         }
                     });
                 } catch (IllegalArgumentException e) {
-
                 }
+                graph.getViewport().setScrollable(true); // enables horizontal scrolling
+                graph.getViewport().setScrollableY(true); // enables vertical scrolling
+                graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+                graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
             }
         });
 
