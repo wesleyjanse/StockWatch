@@ -175,6 +175,7 @@ public class SelectedCompanyFragment extends Fragment {
                 graph.getViewport().setScrollableY(true); // enables vertical scrolling
                 graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
                 graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+                graph.getGridLabelRenderer().setNumHorizontalLabels(3);
             }
         });
 
