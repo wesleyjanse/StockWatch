@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,4 +31,42 @@
         </menu>
     </item>
 
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:checked="true"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/nav_favorites" />
+        <item
+            android:id="@+id/nav_my_stocks"
+            android:icon="@drawable/ic_person"
+            android:title="@string/nav_my_stocks" />
+        <item
+            android:id="@+id/nav_compare"
+            android:icon="@drawable/ic_compare"
+            android:title="@string/nav_compare" />
+    </group>
+
+    <item android:title="Information">
+        <menu>
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/ic_info"
+                android:title="@string/nav_info" />
+        </menu>
+    </item>
+
+>>>>>>> geen idee wa hierin staat
 </menu>

@@ -1,3 +1,4 @@
+
 package be.thomasmore.stockwatch;
 
 import android.content.Context;
@@ -30,6 +31,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.thomasmore.stockwatch.R;
 import be.thomasmore.stockwatch.helpers.DatabaseHelper;
 import be.thomasmore.stockwatch.helpers.HttpReader;
 import be.thomasmore.stockwatch.helpers.JsonHelper;

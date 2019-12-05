@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -143,3 +144,136 @@
 
     </LinearLayout>
 </ScrollView>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:context=".SelectedCompanyFragment">
+
+        <TextView
+            android:id="@+id/companyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="35dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textAlignment="viewEnd"
+                android:layout_marginRight="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change:"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/exchange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/ceo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/sector"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary"
+                android:drawableTint="@android:color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:shadowColor="@android:color/holo_blue_light"
+                android:text="To site"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:drawableTint="@android:color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:shadowColor="@android:color/holo_blue_light"
+                android:text="Add to favorites"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <com.jjoe64.graphview.GraphView
+            android:layout_width = "match_parent"
+            android:layout_height = "200dip"
+            android:id = "@+id/graph" />
+
+    </LinearLayout>
+</ScrollView>
+>>>>>>> geen idee wa hierin staat
