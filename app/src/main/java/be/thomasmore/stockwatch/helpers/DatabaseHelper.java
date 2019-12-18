@@ -51,7 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "description TEXT," +
                 "ceo TEXT," +
                 "sector TEXT," +
-                "image TEXT)";
+                "image TEXT,"+
+                "favoriet INTEGER)";
         db.execSQL(CREATE_TABLE_FAVORITECOMPANY);
 
         String CREATE_TABLE_FAVORITECRYPTO = "CREATE TABLE favoriteCrypto(" +
@@ -60,7 +61,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT," +
                 "price REAL," +
                 "changes REAL," +
-                "marketCapitalization REAL)";
+                "marketCapitalization REAL,"+
+                "favoriet INTEGER)";
         db.execSQL(CREATE_TABLE_FAVORITECRYPTO);
 
         String CREATE_TABLE_FAVORITEFOREX = "CREATE TABLE favoriteForex(" +
@@ -72,7 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "low REAL," +
                 "high REAL," +
                 "changes REAL," +
-                "date TEXT)";
+                "date TEXT,"+
+                "favoriet INTEGER)";
         db.execSQL(CREATE_TABLE_FAVORITEFOREX);
     }
 
@@ -102,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("high", forex.getHigh());
         values.put("changes", forex.getChanges());
         values.put("date", forex.getDate());
-
+        values.put("favoriet", 1);
         long id = db.insert("favoriteForex", null, values);
 
         db.close();
@@ -119,7 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("price", crypto.getPrice());
         values.put("changes", crypto.getChanges());
         values.put("marketCapitalization", crypto.getMarketCapitalization());
-
+        values.put("favoriet", 1);
         long id = db.insert("favoriteCrypto", null, values);
 
         db.close();
@@ -147,7 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("ceo", company.getCeo());
         values.put("sector", company.getSector());
         values.put("image", company.getImage());
-
+        values.put("favoriet", 1);
         long id = db.insert("favoriteCompany", null, values);
 
         db.close();
@@ -191,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 "favoriteCrypto",      // tabelnaam
-                new String[]{"id", "ticker", "name", "price", "changes", "marketCapitalization"}, // kolommen
+                new String[]{"id", "ticker", "name", "price", "changes", "marketCapitalization,favoriet"}, // kolommen
                 "name = ?",  // selectie
                 new String[]{name}, // selectieparameters
                 null,           // groupby
