@@ -137,6 +137,39 @@ public class SelectedCompanyFragment extends Fragment {
                 }
             }
         });
+        Button addmy = (Button) view.findViewById(R.id.myCompanie);
+        addmy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Company> companies = db.getCompanies();
+                List<String> names = new ArrayList<>();
+                for (Company company : companies) {
+                    names.add(company.getName());
+                }
+
+                if (!names.contains(company.getName())) {
+                    Company newC = new Company(0, company.getSymbol(), company.getName(), company.getPrice(),
+                            company.getBeta(), company.getVolAvg(), company.getMktCap(),
+                            company.getLastDiv(), company.getRange(), company.getChanges(),
+                            company.getChangesPercentage(), company.getExchange(), company.getIndustry(),
+                            company.getWebsite(), company.getDescription(), company.getCeo(),
+                            company.getSector(), company.getImage());
+                    db.insertMyCompany(newC);
+                    CharSequence text = "Company added to your stocks!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                } else {
+                    Context context = getActivity();
+                    CharSequence text = "Company already added!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
         HttpReader httpReader2 = new HttpReader();
         httpReader2.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
             @Override

@@ -91,6 +91,34 @@ public class SelectedCryptoFragment extends Fragment {
                 }
             }
         });
+        Button addmy = (Button) view.findViewById(R.id.myCrypto);
+        addmy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Crypto> cryptos = db.getCryptos();
+                List<String> names = new ArrayList<>();
+                for (Crypto crypto: cryptos){
+                    names.add(crypto.getName());
+                }
+
+                if (!names.contains(currentCrypto.getName())){
+                    Crypto newC = new Crypto(0, currentCrypto.getTicker(), currentCrypto.getName(), currentCrypto.getPrice(), currentCrypto.getChanges(), currentCrypto.getMarketCapitalization());
+                    db.insertMyCrypto(newC);
+                    CharSequence text = "Cryptocurrency added to your stocks!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                } else{
+                    Context context = getActivity();
+                    CharSequence text = "Cryptocurrency already in stocks!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
         return view;
     }
 }

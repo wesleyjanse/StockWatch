@@ -19,10 +19,6 @@
             android:id="@+id/nav_my_stocks"
             android:icon="@drawable/ic_person"
             android:title="@string/nav_my_stocks" />
-        <item
-            android:id="@+id/nav_compare"
-            android:icon="@drawable/ic_compare"
-            android:title="@string/nav_compare" />
     </group>
 
     <item android:title="Information">
